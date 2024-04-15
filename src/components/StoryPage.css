@@ -1,0 +1,67 @@
+/* src/components/StoryPage.css */
+.story-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f9; 
+}
+
+.story-content {
+  width: 90%; 
+  max-width: 800px; 
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center; 
+}
+
+.story-header {
+  margin-bottom: 20px;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  font-size: 2em; 
+}
+
+.story-section {
+  margin-top: 20px;
+}
+
+.story-section h2 {
+  color: #555;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 10px;
+}
+
+.story-section ul {
+  list-style: none; 
+  padding: 0;
+}
+
+.story-section li {
+  background: #e9e9ff; 
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.back-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.story-section p {
+  padding: 15px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
