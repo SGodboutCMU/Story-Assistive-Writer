@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import './StoryPage.css'; 
+import './StoryPage.css';
 
 function StoryPage({ stories }) {
   const { id } = useParams();
@@ -32,6 +32,18 @@ function StoryPage({ stories }) {
               <h2>Settings</h2>
               <ul>
                 {story.settings.map((setting, index) => <li key={index}>{setting}</li>)}
+              </ul>
+            </section>
+            <section className="story-section">
+              <h2>Questions</h2>
+              <ul>
+                {story.questions.map((question, index) => <li key={index}>{question}</li>)}
+              </ul>
+            </section>
+            <section className="story-section">
+              <h2>Story Points</h2>
+              <ul>
+                {story.storyPoints.map((point, index) => <li key={index}>{point}</li>)}
               </ul>
             </section>
           </>

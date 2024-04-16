@@ -4,6 +4,7 @@ import GenreSelection from './components/GenreSelection';
 import CharacterDatabase from './components/CharacterDatabase';
 import AddSetting from './components/AddSetting';
 import QuestionInput from './components/QuestionInput';
+import StoryPoints from './components/StoryPoints';
 import StoryPage from './components/StoryPage';
 import './App.css';
 
@@ -12,6 +13,7 @@ function App() {
   const [characters, setCharacters] = useState([]);
   const [settings, setSettings] = useState([]);
   const [questions, setQuestions] = useState([]);
+  const [storyPoints, setStoryPoints] = useState([]);
   const [stories, setStories] = useState([]);
 
   const handleGenreAdd = (newGenres) => {
@@ -29,6 +31,10 @@ function App() {
   const handleQuestionAdd = (newQuestions) => {
     setQuestions(newQuestions);
   };
+
+  const handleStoryPointAdd = (newStoryPoints) => {
+    setStoryPoints(newStoryPoints);
+  };  
 
   const sendStoryData = async (storyData) => {
     try {
@@ -70,6 +76,7 @@ function App() {
       characters,
       settings,
       questions,
+      storyPoints,
       fullStory: "Waiting for Story Assist to think...",
       id: stories.length + 1
     };
@@ -78,6 +85,7 @@ function App() {
     setCharacters([]);
     setSettings([]);
     setQuestions([]);
+    setStoryPoints([]);
     const updatedStories = [newStory, ...stories].slice(0, 10);
     setStories(updatedStories);
     const storyId = await sendStoryData({ genres, characters, settings, questions });
@@ -110,6 +118,9 @@ function App() {
                   <div className="section">
                     <QuestionInput questions={questions} onQuestionAdd={handleQuestionAdd} />
                   </div>
+                  <div className="section">
+                    <StoryPoints storyPoints={storyPoints} onStoryPointAdd={handleStoryPointAdd} />
+                  </div>
                 </div>
                 <div className="generate-story-section">
                   <button onClick={generateStory} className="generate-story-button">Start Assist</button>
@@ -121,11 +132,6 @@ function App() {
                             <Link to={`/story/${story.id}`} key={story.id} className="story-link">
                                 <div className="story-card">
                                     <h3>Story {story.id}</h3>
-                                    <p>Characters: {story.characters.join(', ')}</p>
-                                    <p>Genres: {story.genres.join(', ')}</p>
-                                    <p>Settings: {story.settings.join(',')}</p>
-                                    <p>Questions: {story.questions}</p>
-                                    <p>Assistant Suggestions: {story.fullStory}</p>
                                 </div>
                             </Link>
                         ))}
