@@ -38,7 +38,7 @@ function App() {
 
   const sendStoryData = async (storyData) => {
     try {
-      const response = await fetch('http://localhost:5000/submit-story', {
+      const response = await fetch('http://localhost:5000/getai', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,28 +46,21 @@ function App() {
         body: JSON.stringify(storyData)
       });
       const data = await response.json();
-      console.log(data);
-      return data.storyId;
+	  if (data != null) {
+		console.log(data);
+		return data;
+	  }
+	  else {
+        setTimeout(() => sendStoryData(storyData), 50000);
+      }
     } catch (error) {
       console.error('Error submitting story data:', error);
     }
   };
 
-  const fetchFullStory = async (storyId) => {
-    try {
-      const response = await fetch(`http://localhost:5000/full-story/${storyId}`);
-      const data = await response.json();
-      if (data.fullStory) {
-        const updatedStories = stories.map(story =>
-          story.id === storyId ? {...story, fullStory: data.fullStory} : story
-        );
-        setStories(updatedStories);
-      } else {
-        setTimeout(() => fetchFullStory(storyId), 5000);
-      }
-    } catch (error) {
-      console.error('Error fetching full story:', error);
-    }
+  const fetchFullStory = async (updatedStoriesList,newStoryFullText) => {
+	updatedStoriesList[0].fullStory=newStoryFullText.fullStory;
+	setStories(updatedStoriesList);
   };
 
   const generateStory = async () => {
@@ -86,11 +79,11 @@ function App() {
     setSettings([]);
     setQuestions([]);
     setStoryPoints([]);
-    const updatedStories = [newStory, ...stories].slice(0, 10);
+    const updatedStories = [newStory, ...stories].slice(0, 3);
     setStories(updatedStories);
-    const storyId = await sendStoryData({ genres, characters, settings, questions });
-    if (storyId) {
-      fetchFullStory(storyId);
+    const newStoryFullText = await sendStoryData({ genres, characters, settings, questions, storyPoints, storyId: newStory.id});
+    if (newStoryFullText != null) {
+      fetchFullStory(updatedStories,newStoryFullText);
     }
 
   };
