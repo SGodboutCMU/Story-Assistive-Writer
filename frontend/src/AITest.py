@@ -75,7 +75,7 @@ def get_function():
     for elem in story_points:
         AIMessages.append({"role": "system", "content": "Story Point: "+ elem})
     for elem in questions:
-       AIMessages.append({"role": "system", "content": "Question: "+ elem})
+       AIMessages.append({"role": "user", "content": "Question: "+ elem})
     
     result = prompt(AIMessages)
 
